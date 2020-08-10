@@ -1,0 +1,22 @@
+[user]
+	email = ericjaychi@gmail.com
+	name = Eric Chi
+[alias]
+	# These aliases are hard code, need to come up with a regex that removes the .git for me at the end of the URL for my remote.
+	# pr = "!open \"$(git remote -v | grep origin | grep push | cut -f 2 | cut -d \" \" -f 1 | sed -e \"s|git@\\(.*\\):\\(.*\\).git|https://\\1/\\2|\")/pull/new/$(git rev-parse --abbrev-ref HEAD)\""
+	# gh = "!open \"$(git remote -v | grep origin | grep push | cut -f 2 | cut -d \" \" -f 1 | sed -e \"s|git@\\(.*\\):\\(.*\\).git|https://\\1/\\2|\")/tree/$(git rev-parse --abbrev-ref HEAD)\""
+
+	gh = "!open -a \"Google Chrome\" \"https://www.github.com/$(git remote -v | grep origin | grep push | cut -f 2 | rev | cut -c12- | rev | cut -c16-)/tree/$(git rev-parse --abbrev-ref HEAD)\""
+	graph = log --graph --pretty=format:'%C(bold blue)%h%Creset - %C(yellow)(%ar)%C(reset) %s %C(white)<%an>%Creset %C(reverse yellow)%d%Creset' --abbrev-commit
+	pr = "!open -a \"Google Chrome\" \"https://www.github.com/$(git remote -v | grep origin | grep push | cut -f 2 | rev | cut -c12- | rev | cut -c16-)/pull/new/$(git rev-parse --abbrev-ref HEAD)\""
+[push]
+	default = simple
+[help]
+	autocorrect = 1
+[filter "lfs"]
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+	clean = git-lfs clean -- %f
+[core]
+	editor = vim
